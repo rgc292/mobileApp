@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+<style>
+.pathlogo{
+	text-align:center;
+}
+#menu{
+	background-image: url(background-path.png);
+	background-repeat:no-repeat;
+	background-position:center;
+}
+.icon{
+	position:relative;
+	text-align: center;
+	top: 1em;
+	margin-bottom: .5em;
+}
+#column_headers{
+	font-size: .8em;
+}
+#timetable_header{
+	width:auto;
+	overflow:visible;
+	font-size:3.5vw;
+}
+
+</style>
+<link href="jquery-mobile/jquery.mobile.theme-1.3.0.min.css" rel="stylesheet" type="text/css">
+<link href="jquery-mobile/jquery.mobile.structure-1.3.0.min.css" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="jquery-mobile/jquery-1.11.1.min.js"></script>
+<script src="jquery-mobile/jquery.mobile-1.3.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+<script> type="text/javascript"
+	var d = new Date();
+	var weekday = new Array(7);
+	weekday[0]=  "Sunday";
+	weekday[1] = "Monday";
+	weekday[2] = "Tuesday";
+	weekday[3] = "Wednesday";
+	weekday[4] = "Thursday";
+	weekday[5] = "Friday";
+	weekday[6] = "Saturday";
+
+	var n = weekday[d.getDay()];
+	
+	$(document).ready(function(){
+		$("a.selection").click(function(){
+			$("h3#timetable_header").text(this.text+" - "+n);
+			var Timetables = {HobTT:["Hoboken","Christopher St.","9th St.","14th St.","23rd St.","33rd St."],
+	TTHob:["33rd St.","23rd St.","14th St.","9th St.","Christopher St."],
+	HobWTC:["Hoboken","Newport","Exchange Place","World Trade Center"],
+	WTCHob:["World Trade Center","Exchange Place","Newport","Hoboken"],
+	JSQTT:["Journal Square","Grove St.","Newport","Christopher St.","9th St.","14th St.","23rd St.","33rd St."],
+	TTJSQ:["33rd St.","23rd St.","14th St.","9th St.","Christopher St.","Newport","Grove St.","Journal Square"],
+	JSQTTHob:["Journal Square","Grove St.","Newport","Hoboken","Christopher St.","9th St.","14th St.","23rd St.","33rd St."],
+	TTJSQHob:["33rd St.","23rd St.","14th St.","9th St.","Christopher St.","Hoboken","Newport","Grove St.","Journal Square"],
+	JSQHob:["Journal Square","Grove St.","Newport","Hoboken"],
+	HobJSQ:["Hoboken","Newport","Grove St.","Journal Square"],
+	NWKWTC:["Newark","Harrison","Journal Square","Grove St.","Exchange Place","World Trade Center"],
+	WTCNWK:["World Trade Center","Exchange Place","Grove St.","Journal Square","Harrison","Newark"]
+			};
+			var array_name = Timetables[this.id];
+			var arrayLength = array_name.length;
+			$("#column_headers").html('');
+			for (i = 0; i < arrayLength; i++) {
+				$("#column_headers").append("<th>" + array_name[i] + "</th>");
+				}
+	});
+});
+</script>
+
+</head>
+
+<body>
+<div data-role="page" id="page1">
+  <div data-role="header" data-theme="f">
+  	<div class="pathlogo">
+    <img src="500px-PATH_logo.svg.png" width="60em">
+    </div>
+  </div>
+  <div id="menu" data-role="content">
+  <ul data-role="listview" data-inset="true">
+    <div class="icon">
+    <li><a id="schedules" href="#Schedules"><img src="schedules icon.png"></a></li>
+    </div>
+    <div class="icon">
+    <li><a href="#Alerts"><img src="alertsicon.png"></a></li>
+    </div>
+    <div class="icon">
+    <li><a href="#Map"><img src="mapicon.png"></a></li>
+    </div>
+    
+  </ul>
+  </div>
+  <div align="center" data-role="footer" data-theme="f">
+  		<h1></h1>
+  </div>
+  </div>
+
+
+<div data-role="page" id="Schedules">
+    <div data-role="header" data-theme="f">
+    	<div class="pathlogo" data-role="content"><img src="500px-PATH_logo.svg.png" width="60em"></div>
+      <a href="#page1" data-role="button" data-theme="b">Back</a>
+    </div>
+    <div align="center" data-role="header" data-theme="b">
+    	<h3>Schedules</h3>
+    </div>
+    <div id="datesummary">
+    	<p></p>
+    </div>
+  	<ul data-role="listview">
+      <li><a href="#Timetable">Timetables</a></li>
+      <li><a href="#StationToStation">Station to Station</a></li>
+    </ul>
+    
+  	<div align="center" data-role="footer" data-theme="b">
+  		<h1></h1>
+  	</div>
+</div>
+
+<div data-role="page" id="Alerts" data-theme:"f">
+    <div data-role="header" data-theme="f">
+    	<div class="pathlogo" data-role="content"><img src="500px-PATH_logo.svg.png" width="60em"></div>
+      <a href="#page1" data-role="button" data-theme="b">Back</a>
+    </div>
+    <div align="center" data-role="header" data-theme="b">
+    	<h3>PATH Alerts</h3>
+    </div>
+    <div data-role="content">Content</div>
+<div align="center" data-role="footer" data-theme="b">
+  <h1></h1>
+</div>    
+</div>
+  
+<div data-role="page" id="Map" data-theme:"b">
+    <div data-role="header" data-theme="f">
+    <div class="pathlogo" data-role="content"><img src="500px-PATH_logo.svg.png" width="60em">
+    </div>
+      <a href="#page1" data-role="button" data-theme="b">Back</a>
+    </div>
+    <div align="center" data-role="header" data-theme="a">
+      <h3>Map</h3>
+    </div>
+    <div align="center"><img src="http://www.panynj.gov/photo/path/PATH-System-Route-Maps-09302016.jpg"/></div>
+<div align="center" data-role="footer" data-theme="a">
+  	<h1></h1>
+</div>  
+</div>
+  
+<div data-role="page" id="Timetable" data-theme="c">
+    <div data-role="header" data-theme="f">
+    	<div class="pathlogo" data-role="content"><img src="500px-PATH_logo.svg.png" width="60em"></div>
+      		<a href="#Schedules" data-role="button" data-theme="b">Back</a>
+    	</div>
+    <div align="center" data-role="header" data-theme="b">
+    	<h3>Timetables</h3>
+    </div>
+    <ul data-role="listview">
+      <li><a id="HobTT" class="selection" href="#TimetableContainer">Hoboken to 33rd St.</a></li>
+      <li><a id="TTHob" class="selection" href="#TimetableContainer">33rd St. to Hoboken</a></li>
+      <li><a id="HobWTC" class="selection" href="#TimetableContainer">Hoboken to WTC</a></li>
+      <li><a id="WTCHob" class="selection" href="#TimetableContainer">WTC to Hoboken</a></li>
+      <li><a id="JSQTT" class="selection" href="#TimetableContainer">JSQ to 33rd St.</a></li>
+      <li><a id="TTJSQ" class="selection" href="#TimetableContainer">33rd St. to JSQ</a></li>
+      <li><a id="JSQHob" class="selection" href="#TimetableContainer">JSQ to Hoboken</a></li>
+      <li><a id="HobJSQ" class="selection" href="#TimetableContainer">Hoboken to JSQ</a></li>
+      <li><a id="JSQTTHob" class="selection" href="#TimetableContainer">JSQ to 33rd St. via Hoboken</a></li>
+      <li><a id="TTJSQHob" class="selection" href="#TimetableContainer">33rd St. to JSQ via Hoboken</a></li>
+      <li><a id="NWKWTC" class="selection" href="#TimetableContainer">Newark to WTC</a></li>
+      <li><a id="WTCNWK" class="selection" href="#TimetableContainer">WTC to Newark</a></li>
+    </ul>
+    <div align="center" data-role="footer" data-theme="b">
+  		<h1></h1>
+  	</div>
+</div>
+  
+<div data-role="page" id="StationToStation" data-theme="c">
+  <div data-role="header" data-theme="f">
+    	<div class="pathlogo" data-role="content"><img src="500px-PATH_logo.svg.png" width="60em"></div>
+      		<a href="#Schedules" data-role="button" data-theme="b">Back</a>
+    	</div>
+  <div align="center" data-role="header" data-theme="b">
+            <h3>Station to Station</h3>
+  </div>
+  <div data-role="fieldcontain">
+     <label for="selectmenu" class="select"><strong>From:</strong></label>
+     <select name="selectmenu" id="selectmenu">
+       <option value="option1">9th St.</option>
+       <option value="option2">14th St.</option>
+       <option value="option3">23rd St.</option>
+       <option value="option4">33rd St.</option>
+       <option value="option5">Christopher St.</option>
+       <option value="option6">Exchange Place</option>
+       <option value="option7">Grove St.</option>
+       <option value="option8">Harrison</option>
+       <option value="option9">Hoboken</option>
+       <option value="option10">Journal Square</option>
+       <option value="option11">Newark</option>
+       <option value="option12">Newport</option>
+       <option value="option13">World Trade Center</option>
+     </select>
+  </div>
+   
+   <div data-role="fieldcontain"><label for="selectmenu" class="select"><strong>To:</strong></label>
+     <select name="selectmenu" id="selectmenu2">
+       <option value="option1">9th St.</option>
+       <option value="option2">14th St.</option>
+       <option value="option3">23rd St.</option>
+       <option value="option4">33rd St.</option>
+       <option value="option5">Christopher St.</option>
+       <option value="option6">Exchange Place</option>
+       <option value="option7">Grove St.</option>
+       <option value="option8">Harrison</option>
+       <option value="option9">Hoboken</option>
+       <option value="option10">Journal Square</option>
+       <option value="option11">Newark</option>
+       <option value="option12">Newport</option>
+       <option value="option13">World Trade Center</option>
+     </select>
+   </div>
+   
+   <div align="center" data-role="footer" data-theme="b">
+  		<h1></h1>
+   </div> 
+</div>
+
+<div data-role="page" id="TimetableContainer" data-theme:"f">
+    <div data-role="header" data-theme="f">
+    	<div class="pathlogo" data-role="content"><img src="500px-PATH_logo.svg.png" width="60em"></div>
+      <a href="#Timetable" data-role="button" data-theme="b">Back</a>
+    </div>
+    <div align="center" data-role="header" data-theme="b">
+    	<h3 id="timetable_header"></h3>
+    </div>
+    <div data-role="content">
+    	<table id="timetable_display" style="width:100%">
+        	<tr id="column_headers">
+            </tr>
+        </table>
+    </div>
+<div align="center" data-role="footer" data-theme="b">
+  <h1></h1>
+</div>    
+</div>
+
+</body>
+</html>
