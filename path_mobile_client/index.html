@@ -2,13 +2,14 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Untitled Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>PATH Mobile App</title>
 	<style>
 	.pathlogo{
 		text-align:center;
 	}
 	#menu{
-		background-image: url(background-path.png);
+		background-image: url(Images/background-path.png);
 		background-repeat:no-repeat;
 		background-position:center;
 	}
@@ -24,41 +25,41 @@
 	#timetable_header{
 		width:auto;
 		overflow:visible;
-		font-size:3.5vw;
+	}
+	#system_map{
+		width:"100%";
 	}
 
 	</style>
-	<!--<link href="jquery-mobile/jquery.mobile.theme-1.3.0.min.css" rel="stylesheet" type="text/css">
-	<link href="jquery-mobile/jquery.mobile.structure-1.3.0.min.css" rel="stylesheet" type="text/css">
-	<script src="jquery-mobile/jquery-1.11.1.min.js"></script>
-	<script src="jquery-mobile/jquery.mobile-1.3.0.min.js"></script>-->
-	<link href="jquery.mobile.custom/jquery.mobile.custom.theme.min.css" rel="stylesheet" type="text/css">
-	<link href="jquery.mobile.custom/jquery.mobile.custom.structure.min.css" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	<link href="jquery.mobile.prior/jquery-mobile/jquery.mobile.theme-1.3.0.min.css" rel="stylesheet" type="text/css">
+	<link href="jquery.mobile.prior/jquery-mobile/jquery.mobile.structure-1.3.0.min.css" rel="stylesheet" type="text/css">
+	<script src="jquery.mobile.prior/jquery-mobile/jquery-1.11.1.min.js"></script>
+	<script src="jquery.mobile.prior/jquery-mobile/jquery.mobile-1.3.0.min.js"></script>
+	
 	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-	<script src="js/YourExternalJQueryScripts.js"> </script>
+	<script src="js/index.js"> </script>
 </head>
 
 <body>
 <div data-role="page" id="page1">
   <div data-role="header" data-theme="f">
   	<div class="pathlogo">
-    <img src="500px-PATH_logo.svg.png" width="60em">
+    <img src="Images/500px-PATH_logo.svg.png" width="60em">
     </div>
   </div>
   <div id="menu" data-role="content">
   <ul data-role="listview" data-inset="true">
     <div class="icon">
-    <li><a id="schedules" href="#Schedules"><img src="schedules icon.png"></a></li>
+    <li><a id="schedules" href="#Schedules"><img src="Images/schedules icon.png"></a></li>
     </div>
     <div class="icon">
-    <li><a href="#Alerts"><img src="alertsicon.png"></a></li>
+    <li><a href="#Alerts"><img src="Images/alertsicon.png"></a></li>
     </div>
     <div class="icon">
-    <li><a href="#Map"><img src="mapicon.png"></a></li>
+    <li><a href="#Map"><img src="Images/mapicon.png"></a></li>
     </div>
 
   </ul>
@@ -71,7 +72,7 @@
 
 <div data-role="page" id="Schedules">
   <div data-role="header" data-theme="f">
-  	<div class="pathlogo" data-role="content"><img src="500px-PATH_logo.svg.png" width="60em"></div>
+  	<div class="pathlogo" data-role="content"><img src="Images/500px-PATH_logo.svg.png" width="60em"></div>
     <a href="#page1" data-role="button" data-theme="b">Back</a>
   </div>
   <div align="center" data-role="header" data-theme="b">
@@ -92,7 +93,7 @@
 
 <div data-role="page" id="Alerts" data-theme:"f">
   <div data-role="header" data-theme="f">
-  	<div class="pathlogo" data-role="content"><img src="500px-PATH_logo.svg.png" width="60em"></div>
+  	<div class="pathlogo" data-role="content"><img src="Images/500px-PATH_logo.svg.png" width="60em"></div>
     <a href="#page1" data-role="button" data-theme="b">Back</a>
   </div>
   <div align="center" data-role="header" data-theme="b">
@@ -106,14 +107,14 @@
 
 <div data-role="page" id="Map" data-theme:"b">
   <div data-role="header" data-theme="f">
-  <div class="pathlogo" data-role="content"><img src="500px-PATH_logo.svg.png" width="60em">
+  <div class="pathlogo" data-role="content"><img src="Images/500px-PATH_logo.svg.png" width="60em">
   </div>
     <a href="#page1" data-role="button" data-theme="b">Back</a>
   </div>
   <div align="center" data-role="header" data-theme="a">
     <h3>Map</h3>
   </div>
-  <div align="center"><img src="http://www.panynj.gov/photo/path/PATH-System-Route-Maps-09302016.jpg"/></div>
+  <div id="system_map" align="center"><img src="http://www.panynj.gov/photo/path/PATH-System-Route-Maps-09302016.jpg"/></div>
 <div align="center" data-role="footer" data-theme="a">
 	<h1></h1>
 </div>
@@ -121,7 +122,7 @@
 
 <div data-role="page" id="Timetable" data-theme="c">
     <div data-role="header" data-theme="f">
-    	<div class="pathlogo" data-role="content"><img src="500px-PATH_logo.svg.png" width="60em"></div>
+    	<div class="pathlogo" data-role="content"><img src="Images/500px-PATH_logo.svg.png" width="60em"></div>
       		<a href="#Schedules" data-role="button" data-theme="b">Back</a>
     	</div>
     <div align="center" data-role="header" data-theme="b">
@@ -148,7 +149,7 @@
 
 <div data-role="page" id="StationToStation" data-theme="c">
   <div data-role="header" data-theme="f">
-    	<div class="pathlogo" data-role="content"><img src="500px-PATH_logo.svg.png" width="60em"></div>
+    	<div class="pathlogo" data-role="content"><img src="Images/500px-PATH_logo.svg.png" width="60em"></div>
       		<a href="#Schedules" data-role="button" data-theme="b">Back</a>
     	</div>
   <div align="center" data-role="header" data-theme="b">
@@ -198,7 +199,7 @@
 
 <div data-role="page" id="TimetableContainer" data-theme:"f">
     <div data-role="header" data-theme="f">
-    	<div class="pathlogo" data-role="content"><img src="500px-PATH_logo.svg.png" width="60em"></div>
+    	<div class="pathlogo" data-role="content"><img src="Images/500px-PATH_logo.svg.png" width="60em"></div>
       <a href="#Timetable" data-role="button" data-theme="b">Back</a>
     </div>
     <div align="center" data-role="header" data-theme="b">
