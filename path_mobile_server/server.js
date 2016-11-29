@@ -2,6 +2,11 @@ var express = require('express');
 var cors = require('cors');
 var path = require('path');
 var bodyParser = require('body-parser');
+var mongojs = require('mongojs');
+
+data = require('./data_to_mongo');
+
+db = mongojs('mongodb://localhost:27017/mobile', ['timesheets']);
 
 var index = require('./routes/index');
 var timesheets = require('./routes/timesheets');
