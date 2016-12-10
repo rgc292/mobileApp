@@ -6,24 +6,24 @@ const exec = require('child_process').exec;
 load_data = function(){
 
 	exec(command2, (error, stdout, stderr) => {
-	
+
 		if (error) {
-		
+
 			console.error('exec error: ${error}');
 			return;
-			
-		} 
-		
+
+		}
+
 		else {
-		
+
 		    /*console.log('Works');*/
 			exec(command1, (error, stdout, stderr) => {
-			
+
 				if (error) {
-				
+
 					console.error('exec error: ${error}');
 					return;
-					
+
 				}
 			});
 		}
@@ -34,7 +34,5 @@ setInterval(function(){
     /*console.log('Interval');*/
     load_data();
 }, 30*1000);
-
-
 
 module.exports = load_data();

@@ -35,11 +35,13 @@
 	<link href="jquery.mobile.prior/jquery-mobile/jquery.mobile.structure-1.3.0.min.css" rel="stylesheet" type="text/css">
 	<script src="jquery.mobile.prior/jquery-mobile/jquery-1.11.1.min.js"></script>
 	<script src="jquery.mobile.prior/jquery-mobile/jquery.mobile-1.3.0.min.js"></script>
-	
-	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+	<!-- <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script> -->
+	<script src="http://code.jquery.com/jquery-1.12.3.js"></script>
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 	<script src="js/index.js"> </script>
 </head>
 
@@ -129,18 +131,18 @@
     	<h3>Timetables</h3>
     </div>
     <ul data-role="listview">
-      <li><a id="HobTT" class="selection" href="#TimetableContainer">Hoboken to 33rd St.</a></li>
-      <li><a id="TTHob" class="selection" href="#TimetableContainer">33rd St. to Hoboken</a></li>
-      <li><a id="HobWTC" class="selection" href="#TimetableContainer">Hoboken to WTC</a></li>
-      <li><a id="WTCHob" class="selection" href="#TimetableContainer">WTC to Hoboken</a></li>
-      <li><a id="JSQTT" class="selection" href="#TimetableContainer">JSQ to 33rd St.</a></li>
-      <li><a id="TTJSQ" class="selection" href="#TimetableContainer">33rd St. to JSQ</a></li>
-      <li><a id="JSQHob" class="selection" href="#TimetableContainer">JSQ to Hoboken</a></li>
-      <li><a id="HobJSQ" class="selection" href="#TimetableContainer">Hoboken to JSQ</a></li>
-      <li><a id="JSQTTHob" class="selection" href="#TimetableContainer">JSQ to 33rd St. via Hoboken</a></li>
-      <li><a id="TTJSQHob" class="selection" href="#TimetableContainer">33rd St. to JSQ via Hoboken</a></li>
-      <li><a id="NWKWTC" class="selection" href="#TimetableContainer">Newark to WTC</a></li>
-      <li><a id="WTCNWK" class="selection" href="#TimetableContainer">WTC to Newark</a></li>
+      <li><a id="Hoboken to 33rd" class="selection" href="#TimetableContainer">Hoboken to 33rd</a></li>
+      <li><a id="33rd to Hoboken" class="selection" href="#TimetableContainer">33rd to Hoboken</a></li>
+      <li><a id="Hoboken to WTC" class="selection" href="#TimetableContainer">Hoboken to WTC</a></li>
+      <li><a id="WTC to Hoboken" class="selection" href="#TimetableContainer">WTC to Hoboken</a></li>
+      <li><a id="Journal Square to 33rd" class="selection" href="#TimetableContainer">JSQ to 33rd</a></li>
+      <li><a id="33rd to Journal Square" class="selection" href="#TimetableContainer">33rd to JSQ</a></li>
+      <li><a id="Journal Square to Hoboken" class="selection" href="#TimetableContainer">JSQ to Hoboken</a></li>
+      <li><a id="Hoboken to Journal Square" class="selection" href="#TimetableContainer">Hoboken to JSQ</a></li>
+      <li><a id="JSQ to 33rd via Hoboken" class="selection" href="#TimetableContainer">JSQ to 33rd via Hoboken</a></li>
+      <li><a id="33rd to Journal Square via Hoboken" class="selection" href="#TimetableContainer">33rd to JSQ via Hoboken</a></li>
+      <li><a id="Newark to WTC" class="selection" href="#TimetableContainer">Newark to WTC</a></li>
+      <li><a id="WTC to Newark" class="selection" href="#TimetableContainer">WTC to Newark</a></li>
     </ul>
     <div align="center" data-role="footer" data-theme="b">
   		<h1></h1>
