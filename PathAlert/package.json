@@ -1,0 +1,20 @@
+{
+  "name": "WebCrawler",
+  "version": "1.0.0",
+  "keywords": [
+    "util",
+    "functional",
+    "server",
+    "client",
+    "browser"
+  ],
+  "author": "nitsn",
+  "contributors": [],
+  "dependencies": {
+    "cheerio": "^0.19.0",
+    "request": "^2.79.0",
+    "url-parse": "^1.0.5",
+    "util": "^0.10.3",
+    "xml-parser": "^1.2.1"
+  }
+}
