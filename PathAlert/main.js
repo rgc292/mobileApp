@@ -12,6 +12,12 @@ var fs = require('fs');
 var parse = require('xml-parser');
 var inspect = require('util').inspect;
 
+var express = require('express');
+var router = express.Router();
+
+/*descriptions = [];
+dates = [];*/
+
 var pageToVisit = "http://rss.paalerts.com/rss.aspx?PATH";
 console.log("Visiting page " + pageToVisit);
 request(pageToVisit, function(error, response, xml) {
@@ -44,9 +50,11 @@ request(pageToVisit, function(error, response, xml) {
         {
             if(realItems[i].children[j].name == 'description') {
                 tempObj.description = realItems[i].children[j].content;
+                /*descriptions.push(realItems[i].children[j].content);*/
             }
             if(realItems[i].children[j].name == 'pubDate') {
                 tempObj.date = realItems[i].children[j].content;
+                /*dates.push(realItems[i].children[j].content);*/
             }
         }
         actualItems.push(tempObj);
@@ -58,3 +66,16 @@ request(pageToVisit, function(error, response, xml) {
 }
 });
 
+var alert = {};
+
+// Get all Alerts
+router.get('/main', function(req, res, next) {
+    
+        if (err) {
+            res.send(err);
+        }
+        res.json({alert: actualItems});
+
+});
+
+module.exports = router;
