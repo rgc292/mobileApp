@@ -1,0 +1,25 @@
+table, th, td {
+   border: 1px solid black;
+   text-align: center;
+}
+
+th{
+  height: 25px;
+  font-size: 14px;
+  text-decoration: underline;
+  color: 'grey';
+}
+
+td{
+  height: 25px;
+}
+
+li.alert_items{
+  height: 18px;
+  font-size: 19px;
+  color: rgb(255, 0, 0);
+  line-height: 100px;
+  margin-bottom: 16px;
+  margin-top: 16px;
+
+}

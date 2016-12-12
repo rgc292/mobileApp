@@ -46,13 +46,16 @@ $(document).ready(function(){
       var path = this.id;
       console.log('path ==', path);
       var arrayLength = array_name.length;
+      // $("#timetable_display tr").remove();
+
       $("#column_headers").html('');
       for (i = 0; i < arrayLength; i++) {
         $("#column_headers").append("<th>" + array_name[i] + "</th>");
       }
 
+
+      $('#timetable_display tr').not(':first').remove();
       var pathTable = timeTableData[path];
-      console.log("path table == ", pathTable);
       var html = '';
       for(var i = 1; i < pathTable.length; i++) {
         var row = '';
@@ -63,6 +66,7 @@ $(document).ready(function(){
         html += '<tr>' + row + '</tr>';
       }
       $('#timetable_display tr').first().after(html);
+      html = '';
   });
 
   $.ajax({
@@ -103,6 +107,33 @@ $(document).ready(function(){
   //   console.log('data is ==', data);
   //   alert("Data: " + data);
   // });
+
+  $("#alert_icon").click(function(){
+    $.ajax({
+      type: 'GET',
+
+      // The URL to make the request to.
+      url: 'http://websys3.stern.nyu.edu:7004/api/alerts',
+      contentType: 'application/json',
+      xhrFields: {
+        withCredentials: false
+      },
+
+      headers: {
+
+      },
+      success: function(data) {
+        console.log('Alerts is ==', data);
+        globalAlerts = data.alert;
+        showAlerts(data.alert);
+      },
+
+      error: function(error) {
+        globalAlerts = error;
+        console.log('error is ==', error);
+      }
+    });
+  });
 });
 
 var organiseData = function(data) {
@@ -123,5 +154,25 @@ var organiseData = function(data) {
     }
   }
   // console.log("hashTable ==", hashTable);
-  console.log("timeTableData ==", timeTableData);
+  // console.log("timeTableData ==", timeTableData);
+}
+
+var showAlerts = function (alerts) {
+  // $('#alert_content li').not(':first').remove();
+  // var pathTable = timeTableData[path];
+  var html = '';
+  if(alerts.length == 0) {
+    html = 'No Alerts Are There To See.';
+    $('#alert_error').innerHTML = html;
+  }
+  else {
+    for(var i = 0; i < alerts.length; i++) {
+      html += '<li class="alert_items"> ' + alerts[i].description + '</li>';
+    }
+    // html = 'something';
+    console.log('coming here and html is==', html);
+    $('ul#alert_content').append(html);
+    // html = '';
+  }
+
 }

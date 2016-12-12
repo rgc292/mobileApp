@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
+var cors = require('cors');
 
 var mongojs = require('mongojs');
 
@@ -24,6 +25,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
+// Allow cross domain request
+app.use(cors());
 // client folder
 app.use(express.static(path.join(__dirname, 'client')));
 
@@ -38,4 +41,3 @@ app.use('/api/alerts', alert);
 app.listen(port, function() {
     console.log('Server running on port ' + port);
 });
-

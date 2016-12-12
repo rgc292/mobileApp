@@ -33,6 +33,7 @@
 	</style>
 	<link href="jquery.mobile.prior/jquery-mobile/jquery.mobile.theme-1.3.0.min.css" rel="stylesheet" type="text/css">
 	<link href="jquery.mobile.prior/jquery-mobile/jquery.mobile.structure-1.3.0.min.css" rel="stylesheet" type="text/css">
+	<link href="./css/index.css" rel="stylesheet" type="text/css">
 	<script src="jquery.mobile.prior/jquery-mobile/jquery-1.11.1.min.js"></script>
 	<script src="jquery.mobile.prior/jquery-mobile/jquery.mobile-1.3.0.min.js"></script>
 
@@ -58,7 +59,7 @@
     <li><a id="schedules" href="#Schedules"><img src="Images/schedules icon.png"></a></li>
     </div>
     <div class="icon">
-    <li><a href="#Alerts"><img src="Images/alertsicon.png"></a></li>
+    <li><a href="#Alerts" id="alert_icon"><img src="Images/alertsicon.png"></a></li>
     </div>
     <div class="icon">
     <li><a href="#Map"><img src="Images/mapicon.png"></a></li>
@@ -101,7 +102,12 @@
   <div align="center" data-role="header" data-theme="b">
   	<h3>PATH Alerts</h3>
   </div>
-  <div data-role="content">Content</div>
+  <div data-role="content" >
+		<ul id="alert_content">
+
+		</ul>
+		<div id="alert_error"></div>
+	</div>
 	<div align="center" data-role="footer" data-theme="b">
 	  <h1></h1>
 	</div>
