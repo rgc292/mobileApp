@@ -11,6 +11,13 @@ weekday[6] = "Saturday";
 var n = weekday[d.getDay()];
 var globalData = null;
 var hashTable = {};
+var SaturdayHashTable = {};
+var SundayHashTable = {};
+var MondayHashTable = {};
+var TuesdayHashTable = {};
+var ThurdayHashTable = {};
+var WednesdayHashTable = {};
+var FridayHashTable = {};
 
 var timeTable = {
   "Hoboken to 33rd":["HOBOKEN","CHRISTOPHER ST","9TH ST","14TH ST","23RD ST","33RD ST"],
@@ -29,13 +36,29 @@ var timeTable = {
 
 for(key in timeTable){
   hashTable[key] = {};
-  for(var i = 0; i < timeTable[key].length; i++)
-  hashTable[key][timeTable[key][i]] = {};
+  // MondayHashTable[key] = {};
+  // TuesdayHashTable[key] = {};
+  // WednesdayHashTable[key] = {};
+  // ThurdayHashTable[key] = {};
+  // FridayHashTable[key] = {};
+  // SaturdayHashTable[key] = {};
+  // SundayHashTable[key] = {};
+  for(var i = 0; i < timeTable[key].length; i++) {
+    hashTable[key][timeTable[key][i]] = {};
+    // SundayHashTable[key][timeTable[key][i]] = {};
+    // MondayHashTable[key][timeTable[key][i]] = {};
+    // TuesdayHashTable[key][timeTable[key][i]] = {};
+    // WednesdayHashTable[key][timeTable[key][i]] = {};
+    // ThurdayHashTable[key][timeTable[key][i]] = {};
+    // FridayHashTable[key][timeTable[key][i]] = {};
+    // SaturdayHashTable[key][timeTable[key][i]] = {};
+  }
+
 }
 
 
 var timeTableData = {
-  "Hoboken to 33rd": []
+  // "Hoboken to 33rd": []
 }
 
 $(document).ready(function(){
@@ -57,16 +80,23 @@ $(document).ready(function(){
       $('#timetable_display tr').not(':first').remove();
       var pathTable = timeTableData[path];
       var html = '';
-      for(var i = 1; i < pathTable.length; i++) {
-        var row = '';
-        for(var j = 0 ; j < array_name.length ; j++) {
-          row = row + '<td>' + pathTable[i][array_name[j]] + '</td>';
-        }
-
-        html += '<tr>' + row + '</tr>';
+      if(pathTable.length == 0 || pathTable == null) {
+        html = 'No train is scheduled for today for this path.'
+        $("timetable#error").innerHTML = html;
       }
-      $('#timetable_display tr').first().after(html);
-      html = '';
+      else {
+        for(var i = 1; i < pathTable.length; i++) {
+          var row = '';
+          for(var j = 0 ; j < array_name.length ; j++) {
+            row = row + '<td>' + pathTable[i][array_name[j]] + '</td>';
+          }
+
+          html += '<tr>' + row + '</tr>';
+        }
+        $('#timetable_display tr').first().after(html);
+        html = '';
+      }
+
   });
 
   $.ajax({
@@ -138,16 +168,113 @@ $(document).ready(function(){
 
 var organiseData = function(data) {
   for (var i = 0 ; i < data.length ; i++){
-    hashTable[data[i].route][data[i].station] = data[i];
+    if(data[i].day == 'Weekday') {
+      hashTable[data[i].route][data[i].station] = data[i];
+    }
+    else if(data[i].day == 'Monday') {
+      if(MondayHashTable[data[i].route] == null) {
+        MondayHashTable[data[i].route] = {};
+      }
+      MondayHashTable[data[i].route][data[i].station] = {};
+      MondayHashTable[data[i].route][data[i].station] = data[i];
+    }
+    else if(data[i].day == 'Tuesday') {
+      if(TuesdayHashTable[data[i].route] == null) {
+        TuesdayHashTable[data[i].route] = {};
+      }
+      TuesdayHashTable[data[i].route][data[i].station] = {};
+      TuesdayHashTable[data[i].route][data[i].station] = data[i];
+    }
+    else if(data[i].day == 'Wednesday') {
+      if(WednesdayHashTable[data[i].route] == null) {
+        WednesdayHashTable[data[i].route] = {};
+      }
+      WednesdayHashTable[data[i].route][data[i].station] = {};
+      WednesdayHashTable[data[i].route][data[i].station] = data[i];
+    }
+    else if(data[i].day == 'Thursday') {
+      if(ThurdayHashTable[data[i].route] == null) {
+        ThurdayHashTable[data[i].route] = {};
+      }
+      ThurdayHashTable[data[i].route][data[i].station] = {};
+      ThurdayHashTable[data[i].route][data[i].station] = data[i];
+    }
+    else if(data[i].day == 'Friday') {
+      if(FridayHashTable[data[i].route] == null) {
+        FridayHashTable[data[i].route] = {};
+      }
+      FridayHashTable[data[i].route][data[i].station] = {};
+      FridayHashTable[data[i].route][data[i].station] = data[i];
+    }
+    else if(data[i].day == 'Saturday') {
+      if(SaturdayHashTable[data[i].route] == null) {
+        SaturdayHashTable[data[i].route] = {};
+      }
+      SaturdayHashTable[data[i].route][data[i].station] = {};
+      SaturdayHashTable[data[i].route][data[i].station] = data[i];
+    }
+    else if(data[i].day == 'Sunday') {
+      if(SundayHashTable[data[i].route] == null) {
+        SundayHashTable[data[i].route] = {};
+      }
+      SundayHashTable[data[i].route][data[i].station] = {};
+      SundayHashTable[data[i].route][data[i].station] = data[i];
+    }
   }
 
-  for(path in hashTable) {
+  if(n != 'Saturday' && n != 'Sunday') {
+    for(path in hashTable) {
+      timeTableData[path] = [];
+      for(station in hashTable[path]) {
+        for(key in hashTable[path][station]) {
+          if(key != "_id" && key != "day" && key != "route" && key != "station"  && parseInt(key) != 153 && hashTable[path][station][key] != "") {
+            var tempObj = {};
+            tempObj[station] = hashTable[path][station][key]
+            timeTableData[path][parseInt(key)] = $.extend({}, timeTableData[path][parseInt(key)], tempObj);
+          }
+        }
+      }
+    }
+  }
+
+
+  var todayHashTable = {};
+  console.log('value of n ==', n);
+  switch (n) {
+    case "Sunday":
+        todayHashTable = SundayHashTable;
+      break;
+    case "Monday":
+        todayHashTable = MondayHashTable;
+      break;
+    case "Tuesday":
+        todayHashTable = TuesdayHashTable;
+      break;
+    case "Wednesday":
+        todayHashTable = WednesdayHashTable;
+      break;
+    case "Thursday":
+        todayHashTable = ThurdayHashTable;
+      break;
+    case "Friday":
+        todayHashTable = FridayHashTable;
+      break;
+    case "Saturday":
+        todayHashTable = SaturdayHashTable;
+      break;
+    default:
+      todayHashTable = hashTable;
+  }
+
+  console.log('todays hashtable ==', todayHashTable);
+
+  for(path in todayHashTable) {
     timeTableData[path] = [];
-    for(station in hashTable[path]) {
-      for(key in hashTable[path][station]) {
-        if(key != "_id" && key != "day" && key != "route" && key != "station"  && parseInt(key) != 153 && hashTable[path][station][key] != "") {
+    for(station in todayHashTable[path]) {
+      for(key in todayHashTable[path][station]) {
+        if(key != "_id" && key != "day" && key != "route" && key != "station"  && parseInt(key) != 153 && todayHashTable[path][station][key] != "") {
           var tempObj = {};
-          tempObj[station] = hashTable[path][station][key]
+          tempObj[station] = todayHashTable[path][station][key]
           timeTableData[path][parseInt(key)] = $.extend({}, timeTableData[path][parseInt(key)], tempObj);
         }
       }
