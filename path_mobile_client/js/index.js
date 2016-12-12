@@ -52,44 +52,25 @@ $(document).ready(function(){
       }
 
       var pathTable = timeTableData[path];
-      // console.log('Hoboken ==', timeTableData['Hoboken to 33rd'][1]['HOBOKEN']);
+      console.log("path table == ", pathTable);
       var html = '';
-      // console.log('array_name ==', array_name);
       for(var i = 1; i < pathTable.length; i++) {
-        // console.log('Hoboken ==', timeTableData['Hoboken to 33rd'][i]['HOBOKEN']);
         var row = '';
         for(var j = 0 ; j < array_name.length ; j++) {
           row = row + '<td>' + pathTable[i][array_name[j]] + '</td>';
         }
-        // console.log('row is ==', row);
-        // html += '<tr><td>' + pathTable[i]['HOBOKEN'] + '</td><td>' +
-        //    pathTable[i]['CHRISTOPHER ST'] + '</td><td>' +
-        //    pathTable[i]['9TH ST'] + '</td><td>' +
-        //    pathTable[i]['14TH ST'] + '</td><td>' +
-        //    pathTable[i]['23RD ST'] + '</td><td>' +
-        //    pathTable[i]['33RD ST'] + '</td></tr>' ;
+
         html += '<tr>' + row + '</tr>';
       }
       $('#timetable_display tr').first().after(html);
   });
 
   $.ajax({
-
-    // The 'type' property sets the HTTP method.
-    // A value of 'PUT' or 'DELETE' will trigger a preflight request.
     type: 'GET',
 
     // The URL to make the request to.
     url: 'http://websys3.stern.nyu.edu:7004/api/timesheets',
-
-    // The 'contentType' property sets the 'Content-Type' header.
-    // The JQuery default for this property is
-    // 'application/x-www-form-urlencoded; charset=UTF-8', which does not trigger
-    // a preflight. If you set this value to anything other than
-    // application/x-www-form-urlencoded, multipart/form-data, or text/plain,
-    // you will trigger a preflight request.
     contentType: 'application/json',
-
     xhrFields: {
       // The 'xhrFields' property sets additional fields on the XMLHttpRequest.
       // This can be used to set the 'withCredentials' property.
@@ -113,10 +94,7 @@ $(document).ready(function(){
     },
 
     error: function(error) {
-      // Here's where you handle an error response.
-      // Note that if the error was due to a CORS issue,
-      // this function will still fire, but there won't be any additional
-      // information about the error.
+      globalData = error;
       console.log('error is ==', error);
     }
   });
@@ -144,6 +122,6 @@ var organiseData = function(data) {
       }
     }
   }
-  console.log("hashTable ==", hashTable);
+  // console.log("hashTable ==", hashTable);
   console.log("timeTableData ==", timeTableData);
 }
