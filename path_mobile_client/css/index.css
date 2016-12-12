@@ -7,7 +7,7 @@ th{
   height: 25px;
   font-size: 14px;
   text-decoration: underline;
-  color: 'grey';
+  color: #0099ff;
 }
 
 td{
@@ -15,11 +15,17 @@ td{
 }
 
 li.alert_items{
-  height: 18px;
+  /*height: 18px;*/
   font-size: 19px;
-  color: rgb(255, 0, 0);
-  line-height: 100px;
+  line-height: 130%;
   margin-bottom: 16px;
   margin-top: 16px;
+  display: 'block';
+  /*flex-direction: 'column';*/
 
+}
+
+.date{
+  color: #0099ff;
+  font-size: 14px;
 }

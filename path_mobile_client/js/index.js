@@ -166,13 +166,14 @@ var showAlerts = function (alerts) {
     $('#alert_error').innerHTML = html;
   }
   else {
+    $('ul#alert_content > li').remove() ;
     for(var i = 0; i < alerts.length; i++) {
-      html += '<li class="alert_items"> ' + alerts[i].description + '</li>';
+      html += '<li class="alert_items"> <div>' + alerts[i].description + '</div>' + '<div class="date">' + alerts[i].date + '</div></li>';
     }
     // html = 'something';
     console.log('coming here and html is==', html);
     $('ul#alert_content').append(html);
-    // html = '';
+    html = '';
   }
 
 }
