@@ -68,6 +68,11 @@ $(document).ready(function(){
       var array_name = timeTable[this.id];
       var path = this.id;
       console.log('path ==', path);
+      if(array_name == null) {
+        html = 'No train is scheduled for today for this path.'
+        $("#error").innerHTML = html;
+        return;
+      }
       var arrayLength = array_name.length;
       // $("#timetable_display tr").remove();
 
@@ -76,13 +81,17 @@ $(document).ready(function(){
         $("#column_headers").append("<th>" + array_name[i] + "</th>");
       }
 
-
+      // $("#timetable_display > tr").remove();
       $('#timetable_display tr').not(':first').remove();
+      // $('#timetable_display tr:first').remove();
+
       var pathTable = timeTableData[path];
+      console.log('path is ==', path);
+      console.log('path table ==', pathTable);
       var html = '';
       if(pathTable.length == 0 || pathTable == null) {
         html = 'No train is scheduled for today for this path.'
-        $("timetable#error").innerHTML = html;
+        $("#error").innerHTML = html;
       }
       else {
         for(var i = 1; i < pathTable.length; i++) {
@@ -223,6 +232,7 @@ var organiseData = function(data) {
   }
 
   if(n != 'Saturday' && n != 'Sunday') {
+    console.log('hashTable in if ==', hashTable);
     for(path in hashTable) {
       timeTableData[path] = [];
       for(station in hashTable[path]) {
@@ -265,8 +275,9 @@ var organiseData = function(data) {
     default:
       todayHashTable = hashTable;
   }
-
+  console.log("hashTable before==", hashTable);
   console.log('todays hashtable ==', todayHashTable);
+  console.log('todays timetable before ==', timeTableData);
 
   for(path in todayHashTable) {
     timeTableData[path] = [];
@@ -280,8 +291,8 @@ var organiseData = function(data) {
       }
     }
   }
-  // console.log("hashTable ==", hashTable);
-  // console.log("timeTableData ==", timeTableData);
+  console.log("hashTable after==", hashTable);
+  console.log("timeTableData afer==", timeTableData);
 }
 
 var showAlerts = function (alerts) {

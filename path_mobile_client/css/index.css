@@ -1,5 +1,7 @@
 table, th, td {
-   border: 1px solid black;
+    border: 1px solid #c6d9ec;
+    /*border-bottom: 1px solid #c6d9ec;
+    border-bottom: 1px solid #c6d9ec;*/
    text-align: center;
 }
 
@@ -11,6 +13,8 @@ th{
 }
 
 td{
+  /*border-bottom: 1px solid #8cb3d9;*/
+  padding: 8px;
   height: 25px;
 }
 
