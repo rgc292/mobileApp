@@ -21,13 +21,13 @@ var FridayHashTable = {};
 
 var timeTable = {
   "Hoboken to 33rd":["HOBOKEN","CHRISTOPHER ST","9TH ST","14TH ST","23RD ST","33RD ST"],
-  "33rd to Hoboken":["33RD ST","23RD ST","14TH ST","9TH ST","CHRISTOPHER ST"],
+  "33rd to Hoboken":["33RD ST","23RD ST","14TH ST","9TH ST","CHRISTOPHER ST","HOBOKEN"],
   "Hoboken to WTC":["HOBOKEN","NEWPORT","EXCHANGE PLACE","WORLD TRADE CENTER"],
   "WTC to Hoboken":["WORLD TRADE CENTER","EXCHANGE PLACE","NEWPORT","HOBOKEN"],
   "Journal Square to 33rd":["JOURNAL SQUARE","GROVE ST","NEWPORT","CHRISTOPHER ST","9TH ST","14TH ST","23RD ST","33RD ST"],
   "33rd to Journal Square":["33RD ST","23RD ST","14TH ST","9TH ST","CHRISTOPHER ST","NEWPORT","GROVE ST","JOURNAL SQUARE"],
-  "Journal Square to 33rd via Hoboken":["JOURNAL SQUARE","GROVE ST","NEWPORT","HOBOKEN","CHRISTOPHER ST","9TH ST","14TH ST","23RD ST","33RD ST"],
-  "33rd to Journal Square via Hoboken":["33RD ST","23RD ST","14TH ST","9TH ST","CHRISTOPHER ST","HOBOKEN","NEWPORT","GROVE ST","JOURNAL SQUARE"],
+  // "Journal Square to 33rd via Hoboken":["JOURNAL SQUARE","GROVE ST","NEWPORT","HOBOKEN","CHRISTOPHER ST","9TH ST","14TH ST","23RD ST","33RD ST"],
+  // "33rd to Journal Square via Hoboken":["33RD ST","23RD ST","14TH ST","9TH ST","CHRISTOPHER ST","HOBOKEN","NEWPORT","GROVE ST","JOURNAL SQUARE"],
   "Journal Square to Hoboken":["JOURNAL SQUARE","GROVE ST","NEWPORT","HOBOKEN"],
   "Hoboken to Journal Square":["HOBOKEN","NEWPORT","GROVE ST","JOURNAL SQUARE"],
   "Newark to WTC":["NEWARK","HARRISON","JOURNAL SQUARE","GROVE ST","EXCHANGE PLACE","WORLD TRADE CENTER"],
@@ -67,7 +67,8 @@ $(document).ready(function(){
 
       var array_name = timeTable[this.id];
       var path = this.id;
-      console.log('path ==', path);
+      // console.log('path ==', path);
+      $('#timetable_display tr').not(':first').remove();
       if(array_name == null) {
         html = 'No train is scheduled for today for this path.'
         $("#error").innerHTML = html;
@@ -80,10 +81,6 @@ $(document).ready(function(){
       for (i = 0; i < arrayLength; i++) {
         $("#column_headers").append("<th>" + array_name[i] + "</th>");
       }
-
-      // $("#timetable_display > tr").remove();
-      $('#timetable_display tr').not(':first').remove();
-      // $('#timetable_display tr:first').remove();
 
       var pathTable = timeTableData[path];
       console.log('path is ==', path);
@@ -131,7 +128,7 @@ $(document).ready(function(){
 
     success: function(data) {
       // Here's where you handle a successful response.
-      console.log('data is ==', data);
+      // console.log('data is ==', data);
       globalData = data;
       organiseData(data);
     },
@@ -162,7 +159,7 @@ $(document).ready(function(){
 
       },
       success: function(data) {
-        console.log('Alerts is ==', data);
+        // console.log('Alerts is ==', data);
         globalAlerts = data.alert;
         showAlerts(data.alert);
       },
@@ -172,6 +169,19 @@ $(document).ready(function(){
         console.log('error is ==', error);
       }
     });
+  });
+
+
+
+  // Station To Station Click logic
+  $("#search_button").click(function() {
+    // console.log('coming in search_button logic');
+    var from = $("#from")[0].options[$("#from")[0].selectedIndex].value;
+    var to = $("#to")[0].options[$("#to")[0].selectedIndex].value;
+    console.log('From is ==', from);
+    console.log('to is ==', to);
+
+    var possiblePath = findPossiblePath(from, to);
   });
 });
 
@@ -275,9 +285,9 @@ var organiseData = function(data) {
     default:
       todayHashTable = hashTable;
   }
-  console.log("hashTable before==", hashTable);
-  console.log('todays hashtable ==', todayHashTable);
-  console.log('todays timetable before ==', timeTableData);
+  // console.log("hashTable before==", hashTable);
+  // console.log('todays hashtable ==', todayHashTable);
+  // console.log('todays timetable before ==', timeTableData);
 
   for(path in todayHashTable) {
     timeTableData[path] = [];
@@ -291,7 +301,7 @@ var organiseData = function(data) {
       }
     }
   }
-  console.log("hashTable after==", hashTable);
+  // console.log("hashTable after==", hashTable);
   console.log("timeTableData afer==", timeTableData);
 }
 
@@ -300,18 +310,132 @@ var showAlerts = function (alerts) {
   // var pathTable = timeTableData[path];
   var html = '';
   if(alerts.length == 0) {
-    html = 'No Alerts Are There To See.';
-    $('#alert_error').innerHTML = html;
+    //html = 'No recent service alerts at this time.';
+    $('#alert_error').html("<p>No recent service alerts at this time.</p>");
   }
   else {
     $('ul#alert_content > li').remove() ;
+    // $('ul#alert_content').append('<li><a id="Hoboken to 33rd" class="selection" href="#TimetableContainer">Hoboken to 33rd</a></li>');
     for(var i = 0; i < alerts.length; i++) {
       html += '<li class="alert_items"> <div>' + alerts[i].description + '</div>' + '<div class="date">' + alerts[i].date + '</div></li>';
     }
     // html = 'something';
-    console.log('coming here and html is==', html);
+    // console.log('coming here and html is==', html);
     $('ul#alert_content').append(html);
     html = '';
   }
 
+}
+
+var findPossiblePath = function(from, to) {
+  var possibleFromPaths = {};
+  var possibleToPaths = {};
+  var possiblePaths = {};
+  for(key in timeTable) {
+    for(var i=0; i < timeTable[key].length; i++) {
+      if(timeTable[key][i] == from) {
+        possibleFromPaths[key] = i;
+        break;
+      }
+    }
+  }
+
+  for(key in possibleFromPaths) {
+    for(var i=0; i < timeTable[key].length; i++) {
+      if(timeTable[key][i] == to && i > possibleFromPaths[key]) {
+        possiblePaths[key] = {from:possibleFromPaths[key], to:i};
+        break;
+      }
+    }
+  }
+
+  $("ul#search_result > li").remove();
+  var i =10;
+  for(key in possiblePaths) {
+    var html = '<li><a id=' + i + ' class="search_selection" href="#SearchTableContainer">' + key +'</a></li>';
+    $("ul#search_result").append(html);
+    i++;
+  }
+
+  $("a.search_selection").click(function(){
+    $("h3#searchtable_header").text(this.text+" - "+n);
+
+      var array_name = timeTable[this.text];
+      var path = this.text;
+      // console.log('path ==', possiblePaths[path].from);
+      $('#searchtable_display tr').not(':first').remove();
+      if(array_name == null) {
+        html = 'No train is scheduled for today for this path.'
+        $("#error").innerHTML = html;
+        return;
+      }
+      var arrayLength = array_name.length;
+      // $("#timetable_display tr").remove();
+
+      $("#search_column_headers").html('');
+      for (i = possiblePaths[path].from; i <= possiblePaths[path].to; i++) {
+        $("#search_column_headers").append("<th>" + array_name[i] + "</th>");
+      }
+
+      var pathTable = timeTableData[path];
+      // console.log('path is ==', path);
+      // console.log('path table ==', pathTable);
+      var html = '';
+      if(pathTable.length == 0 || pathTable == null) {
+        html = 'No train is scheduled for today for this path.'
+        $("#error").innerHTML = html;
+      }
+      else {
+        var currentTime = new Date();
+        var currentHours = currentTime.getHours();
+        var currentMinutes = currentTime.getMinutes();
+
+        for(var i = 1; i < pathTable.length; i++) {
+          if(compareTimeGreater(pathTable[i][array_name[possiblePaths[path].from]], {hours:currentHours, minutes:currentMinutes})) {
+            var row = '';
+            for(var j = possiblePaths[path].from ; j <= possiblePaths[path].to ; j++) {
+              row = row + '<td>' + pathTable[i][array_name[j]] + '</td>';
+            }
+
+            html += '<tr>' + row + '</tr>';
+          }
+        }
+        $('#searchtable_display tr').first().after(html);
+        html = '';
+      }
+
+  });
+
+  console.log('possiblePaths ==', possiblePaths);
+  return possiblePaths;
+}
+
+compareTimeGreater = function(str, currentTime) {
+
+
+  str.trim();
+  var ampm = str.substr(str.length-2, 2);
+  ampm.trim();
+  // console.log('ampm ==', ampm);
+  var time = str.substr(0,5);
+  time.trim();
+  var hours = parseInt(time.split(':')[0]) + (ampm == 'PM' ? 12 : 0);
+  var minutes = parseInt(time.split(':')[1]);
+  if(hours == 12){
+    hours = 0;
+  }
+  else if(hours == 24){
+    hours = 12;
+  }
+
+  // console.log('comparing =='+ str + ' :with == ', hours + ' and ' + currentTime.hours .);
+
+  var answer = false;
+  if(hours >= currentTime.hours){
+    if(minutes>= currentTime.minutes){
+      answer = true;
+    }
+  }
+  return answer;
+  // console.log(str + 'of jours are ==' + hour);
 }

@@ -1,21 +1,18 @@
-table, th, td {
-    border: 1px solid #c6d9ec;
-    /*border-bottom: 1px solid #c6d9ec;
-    border-bottom: 1px solid #c6d9ec;*/
+th, td {
+   border: 1px solid #dcdfe5;
    text-align: center;
 }
 
 th{
   height: 25px;
   font-size: 14px;
-  text-decoration: underline;
+  /*text-decoration: underline;*/
   color: #0099ff;
 }
 
 td{
-  /*border-bottom: 1px solid #8cb3d9;*/
-  padding: 8px;
   height: 25px;
+  padding: 1px;
 }
 
 li.alert_items{
@@ -38,4 +35,20 @@ li.alert_items{
   color: red;
   font-size: 20px;
   text-align: center;
+}
+
+#search_button{
+  width: 100px;
+  height: 35px;
+  margin: auto;
+  text-align: center;
+  position: relative;
+  left: 80px;
+}
+
+.separator{
+  height: 2px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  background-color: #0099ff;
 }

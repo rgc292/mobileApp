@@ -29,6 +29,10 @@
 	#system_map{
 		width:"100%";
 	}
+	#timetable_scroll{
+		overflow:scroll;
+	}
+
 
 	</style>
 	<link href="jquery.mobile.prior/jquery-mobile/jquery.mobile.theme-1.3.0.min.css" rel="stylesheet" type="text/css">
@@ -122,7 +126,7 @@
   <div align="center" data-role="header" data-theme="a">
     <h3>Map</h3>
   </div>
-  <div id="system_map" align="center"><img src="http://www.panynj.gov/photo/path/PATH-System-Route-Maps-09302016.jpg"/></div>
+  <div id="system_map" align="center"><img src="Images/PATH-System-Route-Maps-09302016.jpg" style="width:100%"></div>
 <div align="center" data-role="footer" data-theme="a">
 	<h1></h1>
 </div>
@@ -145,8 +149,8 @@
       <li><a id="33rd to Journal Square" class="selection" href="#TimetableContainer">33rd to JSQ</a></li>
       <li><a id="Journal Square to Hoboken" class="selection" href="#TimetableContainer">JSQ to Hoboken</a></li>
       <li><a id="Hoboken to Journal Square" class="selection" href="#TimetableContainer">Hoboken to JSQ</a></li>
-      <li><a id="JSQ to 33rd via Hoboken" class="selection" href="#TimetableContainer">JSQ to 33rd via Hoboken</a></li>
-      <li><a id="33rd to Journal Square via Hoboken" class="selection" href="#TimetableContainer">33rd to JSQ via Hoboken</a></li>
+      <!-- <li><a id="JSQ to 33rd via Hoboken" class="selection" href="#TimetableContainer">JSQ to 33rd via Hoboken</a></li>
+      <li><a id="33rd to Journal Square via Hoboken" class="selection" href="#TimetableContainer">33rd to JSQ via Hoboken</a></li> -->
       <li><a id="Newark to WTC" class="selection" href="#TimetableContainer">Newark to WTC</a></li>
       <li><a id="WTC to Newark" class="selection" href="#TimetableContainer">WTC to Newark</a></li>
     </ul>
@@ -165,44 +169,71 @@
   </div>
   <div data-role="fieldcontain">
      <label for="selectmenu" class="select"><strong>From:</strong></label>
-     <select name="selectmenu" id="selectmenu">
-       <option value="option1">9th St.</option>
-       <option value="option2">14th St.</option>
-       <option value="option3">23rd St.</option>
-       <option value="option4">33rd St.</option>
-       <option value="option5">Christopher St.</option>
-       <option value="option6">Exchange Place</option>
-       <option value="option7">Grove St.</option>
-       <option value="option8">Harrison</option>
-       <option value="option9">Hoboken</option>
-       <option value="option10">Journal Square</option>
-       <option value="option11">Newark</option>
-       <option value="option12">Newport</option>
-       <option value="option13">World Trade Center</option>
+     <select name="selectmenu" id="from">
+       <option value="9TH ST">9th St.</option>
+       <option value="14TH ST">14th St.</option>
+       <option value="23RD ST">23rd St.</option>
+       <option value="33RD ST">33rd St.</option>
+       <option value="CHRISTOPHER ST">Christopher St.</option>
+       <option value="EXCHANGE PLACE">Exchange Place</option>
+       <option value="GROVE ST">Grove St.</option>
+       <option value="HARISSON">Harrison</option>
+       <option value="HOBOKEN">Hoboken</option>
+       <option value="JOURNAL SQUARE">Journal Square</option>
+       <option value="NEWARK">Newark</option>
+       <option value="NEWPORT">Newport</option>
+       <option value="WORLD TRADE CENTER">World Trade Center</option>
      </select>
   </div>
 
    <div data-role="fieldcontain"><label for="selectmenu" class="select"><strong>To:</strong></label>
-     <select name="selectmenu" id="selectmenu2">
-       <option value="option1">9th St.</option>
-       <option value="option2">14th St.</option>
-       <option value="option3">23rd St.</option>
-       <option value="option4">33rd St.</option>
-       <option value="option5">Christopher St.</option>
-       <option value="option6">Exchange Place</option>
-       <option value="option7">Grove St.</option>
-       <option value="option8">Harrison</option>
-       <option value="option9">Hoboken</option>
-       <option value="option10">Journal Square</option>
-       <option value="option11">Newark</option>
-       <option value="option12">Newport</option>
-       <option value="option13">World Trade Center</option>
+     <select name="selectmenu" id="to">
+			 <option value="9TH ST">9th St.</option>
+       <option value="14TH ST">14th St.</option>
+       <option value="23RD ST">23rd St.</option>
+       <option value="33RD ST">33rd St.</option>
+       <option value="CHRISTOPHER ST">Christopher St.</option>
+       <option value="EXCHANGE PLACE">Exchange Place</option>
+       <option value="GROVE ST">Grove St.</option>
+       <option value="HARISSON">Harrison</option>
+       <option value="HOBOKEN">Hoboken</option>
+       <option value="JOURNAL SQUARE">Journal Square</option>
+       <option value="NEWARK">Newark</option>
+       <option value="NEWPORT">Newport</option>
+       <option value="WORLD TRADE CENTER">World Trade Center</option>
      </select>
    </div>
 
+	 <div id="search_button" data-role="button">Search</div>
+	 <div class="separator"></div>
+	 <ul data-role="listview" id="search_result">
+		 <li><a id="Hoboken to 33rd" class="selection" href="#TimetableContainer">Hoboken to 33rd</a></li>
+		 <li><a id="33rd to Hoboken" class="selection" href="#TimetableContainer">33rd to Hoboken</a></li>
+	 </ul>
    <div align="center" data-role="footer" data-theme="b">
   		<h1></h1>
    </div>
+</div>
+
+<div data-role="page" id="SearchTableContainer" data-theme:"f">
+    <div data-role="header" data-theme="f">
+    	<div class="pathlogo" data-role="content"><img src="Images/500px-PATH_logo.svg.png" width="60em"></div>
+      <a href="#StationToStation" data-role="button" data-theme="b">Back</a>
+    </div>
+    <div align="center" data-role="header" data-theme="b">
+    	<h3 id="searchtable_header"></h3>
+    </div>
+    <div data-role="content">
+	<div id="searchtable_scroll">
+    		<table id="searchtable_display" style="width:100%">
+        		<tr id="search_column_headers">
+            	</tr>
+        	</table>
+	</div>
+    </div>
+<div align="center" data-role="footer" data-theme="b">
+  <h1></h1>
+</div>
 </div>
 
 <div data-role="page" id="TimetableContainer" data-theme:"f">
@@ -214,13 +245,12 @@
     	<h3 id="timetable_header"></h3>
     </div>
     <div data-role="content">
-    	<table id="timetable_display" style="width:100%">
-      	<tr id="column_headers">
-        </tr>
-      </table>
-			<div id="error">
-
-			</div>
+	<div id="timetable_scroll">
+    		<table id="timetable_display" style="width:100%">
+        		<tr id="column_headers">
+            	</tr>
+        	</table>
+	</div>
     </div>
 <div align="center" data-role="footer" data-theme="b">
   <h1></h1>
