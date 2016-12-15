@@ -1,17 +1,18 @@
-table, th, td {
-   border: 1px solid black;
+th, td {
+   border: 1px solid #dcdfe5;
    text-align: center;
 }
 
 th{
   height: 25px;
   font-size: 14px;
-  text-decoration: underline;
+  /*text-decoration: underline;*/
   color: #0099ff;
 }
 
 td{
   height: 25px;
+  padding: 1px;
 }
 
 li.alert_items{

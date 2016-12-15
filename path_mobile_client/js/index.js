@@ -14,7 +14,7 @@ var hashTable = {};
 
 var timeTable = {
   "Hoboken to 33rd":["HOBOKEN","CHRISTOPHER ST","9TH ST","14TH ST","23RD ST","33RD ST"],
-  "33rd to Hoboken":["33RD ST","23RD ST","14TH ST","9TH ST","CHRISTOPHER ST"],
+  "33rd to Hoboken":["33RD ST","23RD ST","14TH ST","9TH ST","CHRISTOPHER ST","HOBOKEN"],
   "Hoboken to WTC":["HOBOKEN","NEWPORT","EXCHANGE PLACE","WORLD TRADE CENTER"],
   "WTC to Hoboken":["WORLD TRADE CENTER","EXCHANGE PLACE","NEWPORT","HOBOKEN"],
   "Journal Square to 33rd":["JOURNAL SQUARE","GROVE ST","NEWPORT","CHRISTOPHER ST","9TH ST","14TH ST","23RD ST","33RD ST"],
@@ -162,8 +162,8 @@ var showAlerts = function (alerts) {
   // var pathTable = timeTableData[path];
   var html = '';
   if(alerts.length == 0) {
-    html = 'No Alerts Are There To See.';
-    $('#alert_error').innerHTML = html;
+    //html = 'No recent service alerts at this time.';
+    $('#alert_error').html("<p>No recent service alerts at this time.</p>");
   }
   else {
     $('ul#alert_content > li').remove() ;
