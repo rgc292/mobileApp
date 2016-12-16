@@ -15,7 +15,7 @@ var SaturdayHashTable = {};
 var SundayHashTable = {};
 var MondayHashTable = {};
 var TuesdayHashTable = {};
-var ThurdayHashTable = {};
+var ThursdayHashTable = {};
 var WednesdayHashTable = {};
 var FridayHashTable = {};
 
@@ -39,7 +39,7 @@ for(key in timeTable){
   // MondayHashTable[key] = {};
   // TuesdayHashTable[key] = {};
   // WednesdayHashTable[key] = {};
-  // ThurdayHashTable[key] = {};
+  // ThursdayHashTable[key] = {};
   // FridayHashTable[key] = {};
   // SaturdayHashTable[key] = {};
   // SundayHashTable[key] = {};
@@ -49,7 +49,7 @@ for(key in timeTable){
     // MondayHashTable[key][timeTable[key][i]] = {};
     // TuesdayHashTable[key][timeTable[key][i]] = {};
     // WednesdayHashTable[key][timeTable[key][i]] = {};
-    // ThurdayHashTable[key][timeTable[key][i]] = {};
+    // ThursdayHashTable[key][timeTable[key][i]] = {};
     // FridayHashTable[key][timeTable[key][i]] = {};
     // SaturdayHashTable[key][timeTable[key][i]] = {};
   }
@@ -70,8 +70,7 @@ $(document).ready(function(){
       // console.log('path ==', path);
       $('#timetable_display tr').not(':first').remove();
       if(array_name == null) {
-        html = 'No train is scheduled for today for this path.'
-        $("#error").innerHTML = html;
+        $("#error").html("<p>No train is scheduled for today for this path.</p>");
         return;
       }
       var arrayLength = array_name.length;
@@ -87,8 +86,7 @@ $(document).ready(function(){
       console.log('path table ==', pathTable);
       var html = '';
       if(pathTable.length == 0 || pathTable == null) {
-        html = 'No train is scheduled for today for this path.'
-        $("#error").innerHTML = html;
+        $("#error").html("<p>No train is scheduled for today for this path.</p>");
       }
       else {
         for(var i = 1; i < pathTable.length; i++) {
@@ -212,11 +210,11 @@ var organiseData = function(data) {
       WednesdayHashTable[data[i].route][data[i].station] = data[i];
     }
     else if(data[i].day == 'Thursday') {
-      if(ThurdayHashTable[data[i].route] == null) {
-        ThurdayHashTable[data[i].route] = {};
+      if(ThursdayHashTable[data[i].route] == null) {
+        ThursdayHashTable[data[i].route] = {};
       }
-      ThurdayHashTable[data[i].route][data[i].station] = {};
-      ThurdayHashTable[data[i].route][data[i].station] = data[i];
+      ThursdayHashTable[data[i].route][data[i].station] = {};
+      ThursdayHashTable[data[i].route][data[i].station] = data[i];
     }
     else if(data[i].day == 'Friday') {
       if(FridayHashTable[data[i].route] == null) {
@@ -274,7 +272,7 @@ var organiseData = function(data) {
         todayHashTable = WednesdayHashTable;
       break;
     case "Thursday":
-        todayHashTable = ThurdayHashTable;
+        todayHashTable = ThursdayHashTable;
       break;
     case "Friday":
         todayHashTable = FridayHashTable;
@@ -349,13 +347,22 @@ var findPossiblePath = function(from, to) {
     }
   }
 
-  $("ul#search_result > li").remove();
-  var i =10;
-  for(key in possiblePaths) {
-    var html = '<li><a id=' + i + ' class="search_selection" href="#SearchTableContainer">' + key +'</a></li>';
-    $("ul#search_result").append(html);
-    i++;
-  }
+  //$("ul#search_result > li").remove();
+  //$("ul#search_result").html("<p><strong>Route Results: </strong></p><br>");
+  //var i =10;
+  //for(key in possiblePaths) {
+    //var html = '<li><a id=' + i + ' class="search_selection" href="#SearchTableContainer">' + key +'</a></li><br>';
+    //$("ul#search_result").append(html);
+    //i++;	
+  //}
+  $("#result_container").html("<p><strong>Route Results: </strong></p><br>");
+  	$("#result_container").append('<ul data-role="listview" id="search_result" style="list-style: none"></ul>');
+	  var i =10;
+	  for(key in possiblePaths) {
+		var html = '<div class="route_result" style="width:75%"><br><li><a id=' + i + ' class="search_selection" href="#SearchTableContainer">' + key +'</a></li><br></div><br>';
+		$("ul#search_result").append(html);
+		i++;	
+  		}
 
   $("a.search_selection").click(function(){
     $("h3#searchtable_header").text(this.text+" - "+n);
@@ -364,9 +371,9 @@ var findPossiblePath = function(from, to) {
       var path = this.text;
       // console.log('path ==', possiblePaths[path].from);
       $('#searchtable_display tr').not(':first').remove();
-      if(array_name == null) {
-        html = 'No train is scheduled for today for this path.'
-        $("#error").innerHTML = html;
+      if(array_name == null || array_name.length == 0) {
+        //html = 'No train is scheduled for today for this path.'
+        $("#error").html('<p>No direct routes available at this time.</p>');
         return;
       }
       var arrayLength = array_name.length;
@@ -382,8 +389,7 @@ var findPossiblePath = function(from, to) {
       // console.log('path table ==', pathTable);
       var html = '';
       if(pathTable.length == 0 || pathTable == null) {
-        html = 'No train is scheduled for today for this path.'
-        $("#error").innerHTML = html;
+        $("#error").html("<p>No direct routes available at this time.</p>");
       }
       else {
         var currentTime = new Date();
@@ -437,5 +443,5 @@ compareTimeGreater = function(str, currentTime) {
     }
   }
   return answer;
-  // console.log(str + 'of jours are ==' + hour);
+  // console.log(str + 'of hours are ==' + hour);
 }
