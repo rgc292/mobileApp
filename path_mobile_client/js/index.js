@@ -9,6 +9,7 @@ weekday[5] = "Friday";
 weekday[6] = "Saturday";
 
 var n = weekday[d.getDay()];
+// var n = "Sunday";
 var globalData = null;
 var hashTable = {};
 var SaturdayHashTable = {};
@@ -85,6 +86,7 @@ $(document).ready(function(){
       console.log('path is ==', path);
       console.log('path table ==', pathTable);
       var html = '';
+      $("#timetable_error").html("");
       if(pathTable == null || pathTable.length == 0 ) {
         $("#timetable_error").html("<p>No train is scheduled for today for this path.</p>");
       }
@@ -239,23 +241,6 @@ var organiseData = function(data) {
     }
   }
 
-  if(n != 'Saturday' && n != 'Sunday') {
-    console.log('hashTable in if ==', hashTable);
-    for(path in hashTable) {
-      timeTableData[path] = [];
-      for(station in hashTable[path]) {
-        for(key in hashTable[path][station]) {
-          if(key != "_id" && key != "day" && key != "route" && key != "station"  && parseInt(key) != 153 && hashTable[path][station][key] != "") {
-            var tempObj = {};
-            tempObj[station] = hashTable[path][station][key]
-            timeTableData[path][parseInt(key)] = $.extend({}, timeTableData[path][parseInt(key)], tempObj);
-          }
-        }
-      }
-    }
-  }
-
-
   var todayHashTable = {};
   console.log('value of n ==', n);
   switch (n) {
@@ -283,22 +268,64 @@ var organiseData = function(data) {
     default:
       todayHashTable = hashTable;
   }
-  // console.log("hashTable before==", hashTable);
-  // console.log('todays hashtable ==', todayHashTable);
-  // console.log('todays timetable before ==', timeTableData);
 
-  for(path in todayHashTable) {
-    timeTableData[path] = [];
-    for(station in todayHashTable[path]) {
-      for(key in todayHashTable[path][station]) {
-        if(key != "_id" && key != "day" && key != "route" && key != "station"  && parseInt(key) != 153 && todayHashTable[path][station][key] != "") {
-          var tempObj = {};
-          tempObj[station] = todayHashTable[path][station][key]
-          timeTableData[path][parseInt(key)] = $.extend({}, timeTableData[path][parseInt(key)], tempObj);
+  if(n != 'Saturday' && n != 'Sunday') {
+    console.log('hashTable in if ==', hashTable);
+    for(path in todayHashTable) {
+      timeTableData[path] = [];
+      for(station in todayHashTable[path]) {
+        for(key in todayHashTable[path][station]) {
+          if(key != "_id" && key != "day" && key != "route" && key != "station"  && parseInt(key) != 153 && todayHashTable[path][station][key] != "") {
+            var tempObj = {};
+            tempObj[station] = todayHashTable[path][station][key]
+            timeTableData[path][parseInt(key)] = $.extend({}, timeTableData[path][parseInt(key)], tempObj);
+          }
+        }
+      }
+    }
+
+    for(path in hashTable) {
+      var j = 0;
+      if(timeTableData[path] == null || timeTableData[path].length == 0){
+        timeTableData[path] = [];
+      }
+      else {
+         j = timeTableData[path].length - 1;
+      }
+
+      for(station in hashTable[path]) {
+        for(key in hashTable[path][station]) {
+          if(key != "_id" && key != "day" && key != "route" && key != "station"  && parseInt(key) != 153 && hashTable[path][station][key] != "") {
+            var tempObj = {};
+            tempObj[station] = hashTable[path][station][key]
+            timeTableData[path][parseInt(key) + j] = $.extend({}, timeTableData[path][parseInt(key) + j], tempObj);
+          }
         }
       }
     }
   }
+
+
+
+  // console.log("hashTable before==", hashTable);
+  // console.log('todays hashtable ==', todayHashTable);
+  // console.log('todays timetable before ==', timeTableData);
+
+  else {
+    for(path in todayHashTable) {
+      timeTableData[path] = [];
+      for(station in todayHashTable[path]) {
+        for(key in todayHashTable[path][station]) {
+          if(key != "_id" && key != "day" && key != "route" && key != "station"  && parseInt(key) != 153 && todayHashTable[path][station][key] != "") {
+            var tempObj = {};
+            tempObj[station] = todayHashTable[path][station][key]
+            timeTableData[path][parseInt(key)] = $.extend({}, timeTableData[path][parseInt(key)], tempObj);
+          }
+        }
+      }
+    }
+  }
+
   // console.log("hashTable after==", hashTable);
   console.log("timeTableData afer==", timeTableData);
 }
@@ -385,8 +412,8 @@ var findPossiblePath = function(from, to) {
       }
 
       var pathTable = timeTableData[path];
-      // console.log('path is ==', path);
-      // console.log('path table ==', pathTable);
+      console.log('path is ==', path);
+      console.log('path table ==', pathTable);
       var html = '';
       if(pathTable == null || pathTable.length == 0) {
         $("#searchtable_error").html("<p>No direct routes available at this time.</p>");
@@ -402,7 +429,9 @@ var findPossiblePath = function(from, to) {
             break;
           }
         }
-
+        console.log('is final value == ', i);
+        console.log('pathtables final value == ', pathTable.length);
+        $("#searchtable_error").html("");
         if(i == pathTable.length) {
           $("#searchtable_error").html("<p>No direct routes available at this time.</p>");
         }
@@ -445,14 +474,17 @@ compareTimeGreater = function(str, currentTime) {
     hours = 12;
   }
 
-  // console.log('comparing =='+ str + ' :with == ', hours + ' and ' + currentTime.hours );
+  console.log('comparing =='+ str + ' :with == ', hours + ' and ' + currentTime.hours );
 
   var answer = false;
-  if(hours >= currentTime.hours){
-    // console.log('with hours true =='+ str + ' :with hours== ', hours + ' and ' + currentTime.hours + ' :with minutes ==' + minutes + ' and' + currentTime.minutes);
+  if(hours > currentTime.hours) {
+    answer = true;
+  }
+  else if(hours == currentTime.hours){
+    console.log('with hours true =='+ str + ' :with hours== ', hours + ' and ' + currentTime.hours + ' :with minutes ==' + minutes + ' and' + currentTime.minutes);
     if(minutes >= currentTime.minutes){
       answer = true;
-      // console.log('with minutes true =='+ str + ' :with == ', hours + ' and ' + currentTime.hours);
+      console.log('with minutes true =='+ str + ' :with == ', hours + ' and ' + currentTime.hours);
     }
   }
   return answer;
